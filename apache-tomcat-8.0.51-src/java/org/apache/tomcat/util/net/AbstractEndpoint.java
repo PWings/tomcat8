@@ -820,6 +820,7 @@ public abstract class AbstractEndpoint<S> {
     public final void init() throws Exception {
         testServerCipherSuitesOrderSupport();
         if (bindOnInit) {
+            // TODO: mark endpoint 绑定端口
             bind();
             bindState = BindState.BOUND_ON_INIT;
         }

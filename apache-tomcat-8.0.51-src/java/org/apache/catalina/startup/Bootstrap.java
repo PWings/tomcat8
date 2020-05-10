@@ -253,6 +253,7 @@ public final class Bootstrap {
      */
     public void init() throws Exception {
 
+        //初始化相关累加载器
         initClassLoaders();
 
         Thread.currentThread().setContextClassLoader(catalinaLoader);
@@ -262,6 +263,7 @@ public final class Bootstrap {
         // Load our startup class and call its process() method
         if (log.isDebugEnabled())
             log.debug("Loading startup class");
+        //把Catalina对象加载进来  并且实例化一个catalina对象赋值给startupInstance
         Class<?> startupClass = catalinaLoader.loadClass("org.apache.catalina.startup.Catalina");
         Object startupInstance = startupClass.getConstructor().newInstance();
 
@@ -275,6 +277,7 @@ public final class Bootstrap {
         paramValues[0] = sharedLoader;
         Method method =
             startupInstance.getClass().getMethod(methodName, paramTypes);
+        //反射调用 startupInstance（catalina对象的）的setParentClassLoader 方法
         method.invoke(startupInstance, paramValues);
 
         catalinaDaemon = startupInstance;
@@ -301,6 +304,7 @@ public final class Bootstrap {
             param = new Object[1];
             param[0] = arguments;
         }
+        // TODO: mark 通过反射调用catalina.load ()
         Method method =
             catalinaDaemon.getClass().getMethod(methodName, paramTypes);
         if (log.isDebugEnabled())
@@ -450,13 +454,13 @@ public final class Bootstrap {
             // Don't set daemon until init() has completed
             Bootstrap bootstrap = new Bootstrap();
             try {
-                bootstrap.init();
+                bootstrap.init();  //catalinaDeamon -->catalina对象
             } catch (Throwable t) {
                 handleThrowable(t);
                 t.printStackTrace();
                 return;
             }
-            daemon = bootstrap;
+            daemon = bootstrap; // daemon = bootstrap;
         } else {
             // When running as a service the call to stop will be on a new
             // thread so make sure the correct class loader is used to prevent
@@ -479,7 +483,9 @@ public final class Bootstrap {
                 daemon.stop();
             } else if (command.equals("start")) {
                 daemon.setAwait(true);
+                // TODO: mark   //加载初始化  反射调用catalina.load()
                 daemon.load(args);
+                // TODO: mark  //启动  反射调用  catalina.start()
                 daemon.start();
             } else if (command.equals("stop")) {
                 daemon.stopServer(args);

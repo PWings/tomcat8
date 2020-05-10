@@ -819,6 +819,10 @@ public final class StandardServer extends LifecycleMBeanBase implements Server {
      * Invoke a pre-startup initialization. This is used to allow connectors
      * to bind to restricted ports under Unix operating environments.
      */
+    /**
+     * server组建的init
+     * @throws LifecycleException
+     */
     @Override
     protected void initInternal() throws LifecycleException {
 
@@ -868,8 +872,11 @@ public final class StandardServer extends LifecycleMBeanBase implements Server {
         }
         // Initialize our defined Services
         for (int i = 0; i < services.length; i++) {
+            // TODO: mark  server 初始化 services
             services[i].init();
         }
+
+
     }
 
     @Override

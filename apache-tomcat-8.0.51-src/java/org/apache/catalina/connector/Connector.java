@@ -957,6 +957,7 @@ public class Connector extends LifecycleMBeanBase  {
         }
 
         try {
+            // TODO: mark  protocolHandler 组件的初始化
             protocolHandler.init();
         } catch (Exception e) {
             throw new LifecycleException

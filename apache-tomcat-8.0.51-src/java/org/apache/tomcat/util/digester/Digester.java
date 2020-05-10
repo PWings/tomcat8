@@ -1443,6 +1443,13 @@ public class Digester extends DefaultHandler2 {
      * @exception IOException if an input/output error occurs
      * @exception SAXException if a parsing exception occurs
      */
+    /**
+     * 解析server.xml---> root 对象
+     * @param input
+     * @return
+     * @throws IOException
+     * @throws SAXException
+     */
     public Object parse(InputSource input) throws IOException, SAXException {
 
         configure();

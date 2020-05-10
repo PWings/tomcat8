@@ -547,6 +547,7 @@ public class StandardService extends LifecycleMBeanBase implements Service {
         super.initInternal();
 
         if (container != null) {
+            // TODO: mark  初始化 container  初始化Engine
             container.init();
         }
 
@@ -565,6 +566,7 @@ public class StandardService extends LifecycleMBeanBase implements Service {
         synchronized (connectorsLock) {
             for (Connector connector : connectors) {
                 try {
+                    // TODO: mark  connector组件的初始化
                     connector.init();
                 } catch (Exception e) {
                     String message = sm.getString(

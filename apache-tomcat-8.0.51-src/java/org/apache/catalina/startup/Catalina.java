@@ -477,6 +477,7 @@ public class Catalina {
         }
     }
 
+    //加载
 
     /**
      * Start a new server instance.
@@ -496,6 +497,8 @@ public class Catalina {
         initNaming();
 
         // Create and execute our Digester
+
+        // TODO: mark   //digester  用于xml解析  解析server.xml
         Digester digester = createStartDigester();
 
         InputSource inputSource = null;
@@ -503,7 +506,7 @@ public class Catalina {
         File file = null;
         try {
             try {
-                file = configFile();
+                file = configFile();  //加载server.xml
                 inputStream = new FileInputStream(file);
                 inputSource = new InputSource(file.toURI().toURL().toString());
             } catch (Exception e) {
@@ -561,6 +564,7 @@ public class Catalina {
             try {
                 inputSource.setByteStream(inputStream);
                 digester.push(this);
+                // TODO: mark  解析server.xml
                 digester.parse(inputSource);
             } catch (SAXParseException spe) {
                 log.warn("Catalina.start using " + getConfigFile() + ": " +
@@ -589,6 +593,8 @@ public class Catalina {
 
         // Start the new server
         try {
+            //init  server
+            // TODO: mark init server
             getServer().init();
         } catch (LifecycleException e) {
             if (Boolean.getBoolean("org.apache.catalina.startup.EXIT_ON_INIT_FAILURE")) {

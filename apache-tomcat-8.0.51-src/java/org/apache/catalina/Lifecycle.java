@@ -80,6 +80,10 @@ package org.apache.catalina;
  *
  * @author Craig R. McClanahan
  */
+
+/**
+ * 组建生命周期接口
+ */
 public interface Lifecycle {
 
 
@@ -92,8 +96,7 @@ public interface Lifecycle {
     public static final String BEFORE_INIT_EVENT = "before_init";
 
 
-    /**
-     * The LifecycleEvent type for the "component after init" event.
+    /**     * The LifecycleEvent type for the "component after init" event.
      */
     public static final String AFTER_INIT_EVENT = "after_init";
 
